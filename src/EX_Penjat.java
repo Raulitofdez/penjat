@@ -54,7 +54,7 @@ public class EX_Penjat {
             // Seleccionar la paraula aleatòriament
             int index = (int)(Math.random()*paraules.length);
             String paraula = paraules[index];
-            paraula="patata";
+          
             
             int totalEncerts = 0,totalErrors = 0, intents =0;
             
