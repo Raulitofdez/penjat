@@ -98,7 +98,7 @@ public class EX_Penjat {
     }
     
     static void mostrarParaula(String paraula, boolean[] encertades) {
-        
+        System.out.println(paraula + "Total de encertades: "+encertades);
     }
     
     static void mostrarLletresIntroduides(String lletres) {
@@ -119,13 +119,24 @@ public class EX_Penjat {
     }
     
     static boolean existeixLletra(String lletres, char lletra) {
-        
-        return true;
-    
+        for(int i=0; i<lletres.length();i++){
+            for(int j=0; j<lletres.length()-1;j++){
+                if(lletra==lletres.charAt(j)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return false;
     }
     
     static void actualitzarEstatPenjat(char[][] penjat,int errors) {
         
+            errors--;
+            System.out.println("Intents restansts: "+errors);
+            mostrarEstatPenjat(penjat);
     }
     
     static void netejaPantalla() {
@@ -133,7 +144,4 @@ public class EX_Penjat {
             System.out.println();
         }
     }
-    
-    
-    
 }
