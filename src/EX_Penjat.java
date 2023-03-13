@@ -84,23 +84,16 @@ public class EX_Penjat {
                                     }
                                 }  
                             }
-                boolean comprova = false;
-                int cont=0;
+                boolean trobat = false;
                 //ERRORS i ENCERTS
                 for(int i=0; i<paraula.length();i++){
                     if(lletra==paraula.charAt(i)){
-                        comprova = true;
+                        trobat = true;
                         totalEncerts++;
-                    }
-                    else{
-                        comprova=false;
-                        cont++;
-                    }
-                    
+                    } 
                 }
-                if(cont==paraula.length()){
-                    totalErrors++;
-                    }
+                if(!trobat)totalErrors++;
+                    
                               
                 actualitzarEstatPenjat(estatPenjat,totalErrors);
                 mostrarEstatPenjat(estatPenjat);
