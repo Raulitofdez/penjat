@@ -102,7 +102,11 @@ public class EX_Penjat {
     }
     
     static void mostrarLletresIntroduides(String lletres) {
-        
+        System.out.print("Lletres introduïdes: ");
+        for (int i=0; i<lletres.length(); i++) {
+            System.out.print(lletres.charAt(i) + " ");
+        }
+        System.out.println();
     }
     
     static String demanarLletra(String lletres) {
