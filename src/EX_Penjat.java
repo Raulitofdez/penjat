@@ -1,3 +1,6 @@
+
+import java.util.Scanner;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -7,8 +10,7 @@
  *
  * @author raulf
  */
-public class Ex03_Penjat {
-    
+public class EX_Penjat {
     public static void main(String[] args) {
         
         final char[][] estatPenjatInicial =
@@ -48,8 +50,6 @@ public class Ex03_Penjat {
             
             // Inicialitzar el dibuix del penjat
             inicialitzarEstatPenjat(estatPenjatInicial,estatPenjat);
-            
-            
             mostrarEstatPenjat(estatPenjat);
             
             // Seleccionar la paraula aleatòriament
@@ -72,7 +72,7 @@ public class Ex03_Penjat {
             
                 
             } while(totalEncerts < paraula.length() && totalErrors < MAXINTENTS);
-        
+            
     }
     
     
@@ -106,8 +106,11 @@ public class Ex03_Penjat {
     }
     
     static String demanarLletra(String lletres) {
-        
-        return null;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introdueix una lletra: ");
+        char lletra = sc.nextLine().charAt(0);
+        lletres+=lletra;
+        return lletres;
     
     }
     
@@ -122,7 +125,9 @@ public class Ex03_Penjat {
     }
     
     static void netejaPantalla() {
-    
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
     
     
