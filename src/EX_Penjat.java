@@ -54,7 +54,7 @@ public class EX_Penjat {
             // Seleccionar la paraula aleatòriament
             int index = (int)(Math.random()*paraules.length);
             String paraula = paraules[index];
-           
+            paraula="patata";
             
             int totalEncerts = 0,totalErrors = 0, intents =0;
             
@@ -85,22 +85,21 @@ public class EX_Penjat {
                                 }  
                             }
                 boolean comprova = false;
+                int cont=0;
                 //ERRORS i ENCERTS
                 for(int i=0; i<paraula.length();i++){
                     if(lletra==paraula.charAt(i)){
                         comprova = true;
-                        break;
+                        totalEncerts++;
                     }
                     else{
                         comprova=false;
+                        cont++;
                     }
                     
                 }
-                if(!comprova){
+                if(cont==paraula.length()){
                     totalErrors++;
-                    }
-                else{
-                    totalEncerts++;
                     }
                               
                 actualitzarEstatPenjat(estatPenjat,totalErrors);
@@ -144,10 +143,10 @@ public class EX_Penjat {
         System.out.print("Paraula oculta   ");
         for (int i=0;i<paraula.length();i++){
         if(encertades[i]==true){
-            System.out.print(paraula.charAt(i)+",");
+            System.out.print(paraula.charAt(i));
         }
         else{
-            System.out.print("*"+" , ");
+            System.out.print("*");
         }
     }
         System.out.println("");
@@ -204,11 +203,12 @@ public class EX_Penjat {
                         penjat[5][7]='/';
                         break;
                 case 7:
-                default:
+                
                         penjat[5][9]='\\';
                         break;
-                }
-            
+                default:
+                        break;
+              }
     }
     
     static void netejaPantalla() {
