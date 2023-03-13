@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /*
@@ -26,8 +27,6 @@ public class EX_Penjat {
           {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
           {'|','_','_','_','_','_','_','_','_','_','_','|'}
          };   
-        
-        
         final String[] paraules = {"patata","armari","bicicleta",
                             "advocat","ascensor","astronauta","autopista",
                             "avinguda","bigoti","carretera","castanya",
@@ -40,7 +39,7 @@ public class EX_Penjat {
                             "tramvia","trapezi","tricicle","violeta"};
         
         
-        final int MAXINTENTS = 7;
+        final int MAXINTENTS = 8;
         
             
             // Estat gràfic del joc durant la partida
@@ -55,11 +54,9 @@ public class EX_Penjat {
             // Seleccionar la paraula aleatòriament
             int index = (int)(Math.random()*paraules.length);
             String paraula = paraules[index];
-            // Eliminar aquesta línia quan el joc estigui completat
-            paraula = "patata";
+           
             
-            
-            int totalEncerts = 0,totalErrors = 0;
+            int totalEncerts = 0,totalErrors = 0, intents =0;
             
             // Estructra de dades (array) per saber quines lletres portem 
             //encertades            
@@ -68,11 +65,57 @@ public class EX_Penjat {
             // Llistat de lletres que hem introduït
             String lletres = "";
             
-            do {
+            char lletra=' ';
+            boolean intent =false;
+            do {    
+                    lletra = demanarLletra(lletres).charAt(lletres.length());
+                    intent = existeixLletra(lletres,lletra);
+                        if(intent==true){
+                            System.out.println("La lletra esta repetida torna a introduir una diferent! ");
+                            
+                        }   
+                        else{
+                            
+                            lletres+=lletra;
+                            for (int i=0;i<paraula.length();i++){
+                                for(int j=0; j<paraula.length();j++){
+                                    if (lletra==paraula.charAt(j)){
+                                        lletresEncertades[j]=true;
+                                    }
+                                }  
+                            }
+                boolean comprova = false;
+                //ERRORS i ENCERTS
+                for(int i=0; i<paraula.length();i++){
+                    if(lletra==paraula.charAt(i)){
+                        comprova = true;
+                        break;
+                    }
+                    else{
+                        comprova=false;
+                    }
+                    
+                }
+                if(!comprova){
+                    totalErrors++;
+                    }
+                else{
+                    totalEncerts++;
+                    }
+                              
+                actualitzarEstatPenjat(estatPenjat,totalErrors);
+                mostrarEstatPenjat(estatPenjat);
+                mostrarLletresIntroduides(lletres);
+                mostrarParaula(paraula,lletresEncertades);
+                System.out.println("Total de errors = "+totalErrors);
+                System.out.println("Total de Encerts = "+totalEncerts);
+                netejaPantalla();
+                }    
+              
             
-                
-            } while(totalEncerts < paraula.length() && totalErrors < MAXINTENTS);
+           }while(totalEncerts < paraula.length() && totalErrors < MAXINTENTS);
             
+             
     }
     
     
@@ -98,50 +141,85 @@ public class EX_Penjat {
     }
     
     static void mostrarParaula(String paraula, boolean[] encertades) {
-        System.out.println(paraula + "Total de encertades: "+encertades);
+        System.out.print("Paraula oculta   ");
+        for (int i=0;i<paraula.length();i++){
+        if(encertades[i]==true){
+            System.out.print(paraula.charAt(i)+",");
+        }
+        else{
+            System.out.print("*"+" , ");
+        }
+    }
+        System.out.println("");
     }
     
     static void mostrarLletresIntroduides(String lletres) {
-        System.out.print("Lletres introduïdes: ");
+        System.out.print("Lletres introduïdes:   ");
         for (int i=0; i<lletres.length(); i++) {
-            System.out.print(lletres.charAt(i) + " ");
+            System.out.print(lletres.charAt(i));
         }
         System.out.println();
     }
     
     static String demanarLletra(String lletres) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Introdueix una lletra: ");
-        char lletra = sc.nextLine().charAt(0);
+        System.out.print("Introdueix una lletra:   ");
+        char lletra = sc.next().charAt(0);
         lletres+=lletra;
         return lletres;
     
     }
     
     static boolean existeixLletra(String lletres, char lletra) {
-        for(int i=0; i<lletres.length();i++){
-            for(int j=0; j<lletres.length()-1;j++){
-                if(lletra==lletres.charAt(j)){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
-        }
-        return false;
+        for (int i=0;i<lletres.length();i++){
+                        if (lletra==lletres.charAt(i)){
+                            return true;
+                        }
+                        
+                    }
+       return false;
     }
     
     static void actualitzarEstatPenjat(char[][] penjat,int errors) {
-        
-            errors--;
-            System.out.println("Intents restansts: "+errors);
-            mostrarEstatPenjat(penjat);
+            switch(errors-1) {
+                case 0:
+                        penjat[1][8]='|';
+                        break;
+                case 1:
+                        penjat[2][8]='O';
+                        break;
+                case 2:
+                        penjat[3][8]='|';
+                        break;
+                case 3:
+                        penjat[3][7]='/';   
+                        break;
+                case 4:
+                        penjat[3][9]='\\';
+                        break;
+                case 5:
+                        penjat[4][8]='|';
+                        break;
+                case 6:
+                        penjat[5][7]='/';
+                        break;
+                case 7:
+                default:
+                        penjat[5][9]='\\';
+                        break;
+                }
+            
     }
     
     static void netejaPantalla() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
+          try {
+  		if (System.getProperty("os.name").contains("Windows")) {
+    		  new ProcessBuilder("cmd", "/c", "cls").
+                          inheritIO().start().waitFor();
+  		} else {
+    	    		System.out.print("\033[H\033[2J");
+    			System.out.flush();
+  		}
+            } catch (IOException | InterruptedException ex) {}
     }
 }
